@@ -8,7 +8,6 @@ type SignoVital {
   minimo: String!
   maximo: String!
   estado: String!
-  controles: [Control!]!
 }
 
 type Control {
@@ -19,8 +18,6 @@ type Control {
   hora: Int!
   valor: Int!
   estado: String!
-  paciente: Paciente!
-  signo_vital: SignoVital!
 }
 
 """
@@ -32,11 +29,15 @@ type Paciente {
   id: Int!
   nombre: String!
   identificacion: String!
+  estado: String!
 }
 
 type Query {
+  pacientes(estado: String): [Paciente!]!
   paciente(id: Int!): Paciente!
+  signoVitales(estado: String): [SignoVital!]!
   signoVital(id: Int!): SignoVital!
+  controles(estado: String): [Control!]!
   control(id: Int!): Control!
 }
 
@@ -53,42 +54,44 @@ type Mutation {
 }
 
 input CreatePacienteInput {
-  nombre: String
+  nombre: String!
   identificacion: String!
+  estado: String!
 }
 
 input UpdatePacienteInput {
   nombre: String
   identificacion: String
+  estado: String
   id: Int!
 }
 
 input CreateSignoVitalInput {
   descripcion: String!
-  minimos: String!
-  maximos: String!
+  minimo: String!
+  maximo: String!
   estado: String!
 }
 
 input UpdateSignoVitalInput {
   descripcion: String
-  minimos: String
-  maximos: String
+  minimo: String
+  maximo: String
   estado: String
   id: Int!
 }
 
 input CreateControlInput {
-  id_paciente: Float!
+  id_paciente: Int!
   id_signo_vital: Float!
   fecha: DateTime!
   hora: Float!
   valor: Float!
-  estado: String
+  estado: String!
 }
 
 input UpdateControlInput {
-  id_paciente: Float
+  id_paciente: Int
   id_signo_vital: Float
   fecha: DateTime
   hora: Float

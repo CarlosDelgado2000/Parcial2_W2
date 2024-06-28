@@ -13,9 +13,9 @@ export class SignoVitalResolver {
     return this.signoVitalService.create(createSignoVitalInput);
   }
 
-  @Query(() => [SignoVital], { name: 'signoVital' })
-  findAll() {
-    return this.signoVitalService.findAll();
+  @Query(() => [SignoVital], { name: 'signoVitales' })
+  findAll(@Args('estado', { type: () => String, nullable: true }) estado: string) {
+    return this.signoVitalService.findAll(estado);
   }
 
   @Query(() => SignoVital, { name: 'signoVital' })

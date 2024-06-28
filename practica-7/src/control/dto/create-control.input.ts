@@ -1,14 +1,14 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Optional } from '@nestjs/common';
+import { InputType, Field, Int } from '@nestjs/graphql';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateControlInput {
-  @Field(() => Number)
-  @IsNotEmpty()
+  @Field(() => Int)
+  @Optional()
   id_paciente: number;
 
   @Field(() => Number)
-  @IsNotEmpty()
   id_signo_vital: number;
 
   @Field(() => Date)
@@ -24,7 +24,7 @@ export class CreateControlInput {
   @IsNotEmpty()
   valor: number;
 
-  @Field(() => String, {nullable: true})
+  @Field(() => String)
   @IsNotEmpty()
   estado: string;
 

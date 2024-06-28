@@ -23,11 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123456',
-      database: 'practica_6',
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
       synchronize: false,
     }),

@@ -16,8 +16,9 @@ export class SignoVitalService {
     return await this.SignoVitalRepository.save(created);
   }
 
-  async findAll(): Promise<SignoVital[]>{
-    return await this.SignoVitalRepository.find();
+  async findAll(estado: string): Promise<SignoVital[]>{
+    const whereCondition = estado === 'todos' ? {} : { estado };
+    return await this.SignoVitalRepository.find({ where: whereCondition });
   }
 
   async findOne(id: number): Promise<SignoVital> {
@@ -31,8 +32,7 @@ export class SignoVitalService {
   }
 
   async remove(id: number): Promise<SignoVital> {
-    const SignoVital = await this.findOne(id);
-    if (!SignoVital) throw new Error(`Pregunta with id: ${id} not found`);
-    return await this.SignoVitalRepository.remove(SignoVital);
+    await this.SignoVitalRepository.update(id, { estado: 'eliminado' });
+    return this.SignoVitalRepository.findOneBy({ id: id });
   }
 }

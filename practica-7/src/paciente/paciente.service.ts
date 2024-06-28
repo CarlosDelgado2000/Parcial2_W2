@@ -17,14 +17,19 @@ export class PacienteService {
     return await this.PacienteRepository.save(newPaciente);
   }
 
-  async findAll(): Promise<Paciente[]> {
-    return this.PacienteRepository.find();
+  async findAll(estado: string): Promise<Paciente[]> {
+    const whereCondition = estado === 'todos' ? {} : { estado };
+    return this.PacienteRepository.find( {where: whereCondition} );
   }
 
   async findOne(id: number): Promise<Paciente> {
     const item = await this.PacienteRepository.findOneBy({id});
     if (!item) throw new NotFoundException('Item not found');
     return item;
+  }
+  async remove(id: number): Promise<Paciente> {
+    await this.PacienteRepository.update(id, { estado: 'eliminado' });
+    return this.PacienteRepository.findOneBy({ id: id });
   }
 
   
@@ -37,11 +42,5 @@ export class PacienteService {
 
     return this.PacienteRepository.save( item );
 
-  }
-
-  async remove( id: number ):Promise<Paciente> {
-    const paciente = await this.findOne( id );
-    await this.PacienteRepository.remove( paciente );
-    return { ...paciente, id };
   }
 }

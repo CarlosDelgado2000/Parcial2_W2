@@ -13,9 +13,9 @@ export class PacienteResolver {
     return this.pacienteService.create(createPacienteInput);
   }
 
-  @Query(() => [Paciente], { name: 'paciente' })
-  findAll() {
-    return this.pacienteService.findAll();
+  @Query(() => [Paciente], { name: 'pacientes' })
+  findAll(@Args('estado', { type: () => String, nullable: true }) estado: string) {
+    return this.pacienteService.findAll(estado);
   }
 
   @Query(() => Paciente, { name: 'paciente' })

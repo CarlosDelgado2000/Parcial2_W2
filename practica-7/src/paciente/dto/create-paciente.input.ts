@@ -5,7 +5,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 @InputType()
 export class CreatePacienteInput {
 
-  @Field(() => String, {nullable: true})
+  @Field(() => String)
   @IsString()
   nombre: string;
 
@@ -13,5 +13,10 @@ export class CreatePacienteInput {
   @IsNotEmpty()
   @IsString()
   identificacion: string;
+
+  @Field(() => String)
+  @IsNotEmpty()
+  @IsString()
+  estado: string;
 
 }

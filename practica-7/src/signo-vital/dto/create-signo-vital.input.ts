@@ -10,14 +10,13 @@ export class CreateSignoVitalInput {
   descripcion: string;
 
   @Field(() => String)
-  @IsNotEmpty()
   @IsString()
-  minimos: string;
+  minimo: string;
 
   @Field(() => String)
   @IsNotEmpty()
   @IsString()
-  maximos: string;
+  maximo: string;
 
   @Field(() => String)
   @IsNotEmpty()

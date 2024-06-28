@@ -1,7 +1,8 @@
+import { Optional } from '@nestjs/common';
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Paciente } from 'src/paciente/entities/paciente.entity';
 import { SignoVital } from 'src/signo-vital/entities/signo-vital.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'control' })
@@ -12,6 +13,7 @@ export class Control {
   id: number;
 
   @Field(() => Int)
+  @Optional()
   @Column()
   id_paciente: number;
 
@@ -37,15 +39,17 @@ export class Control {
 
   @ManyToOne(
     () => Paciente,
-    paciente => paciente.controles,
+    paciente => paciente.control,
+    {eager: true}
   )
-  @Field(() => Paciente)
+  @JoinColumn({ name: 'id_paciente' })
   paciente: Paciente;
 
   @ManyToOne(
     () => SignoVital,
-    signoVital => signoVital.controles,
+    signoVital => signoVital.control,
+    {eager: true}
   )
-  @Field(() => SignoVital)
+  @JoinColumn({ name: 'id_signo_vital' })
   signo_vital: SignoVital;
 }

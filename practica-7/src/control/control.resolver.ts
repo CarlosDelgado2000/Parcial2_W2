@@ -13,9 +13,9 @@ export class ControlResolver {
     return this.controlService.create(createControlInput);
   }
 
-  @Query(() => [Control], { name: 'control' })
-  findAll() {
-    return this.controlService.findAll();
+  @Query(() => [Control], { name: 'controles' })
+  findAll(@Args('estado', { type: () => String, nullable: true }) estado: string) {
+    return this.controlService.findAll(estado);
   }
 
   @Query(() => Control, { name: 'control' })
