@@ -1,7 +1,26 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class CreateSignoVitalInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+
+  @Field(() => String) 
+  @IsNotEmpty()
+  @IsString()
+  descripcion: string;
+
+  @Field(() => String)
+  @IsNotEmpty()
+  @IsString()
+  minimos: string;
+
+  @Field(() => String)
+  @IsNotEmpty()
+  @IsString()
+  maximos: string;
+
+  @Field(() => String)
+  @IsNotEmpty()
+  @IsString()
+  estado: string;
 }

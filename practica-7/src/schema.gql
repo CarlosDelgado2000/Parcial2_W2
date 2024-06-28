@@ -1,0 +1,98 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type SignoVital {
+  id: Int!
+  descripcion: String!
+  minimo: String!
+  maximo: String!
+  estado: String!
+  controles: [Control!]!
+}
+
+type Control {
+  id: Int!
+  id_paciente: Int!
+  id_signo_vital: Int!
+  fecha: DateTime!
+  hora: Int!
+  valor: Int!
+  estado: String!
+  paciente: Paciente!
+  signo_vital: SignoVital!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Paciente {
+  id: Int!
+  nombre: String!
+  identificacion: String!
+}
+
+type Query {
+  paciente(id: Int!): Paciente!
+  signoVital(id: Int!): SignoVital!
+  control(id: Int!): Control!
+}
+
+type Mutation {
+  createPaciente(createPacienteInput: CreatePacienteInput!): Paciente!
+  updatePaciente(updatePacienteInput: UpdatePacienteInput!): Paciente!
+  removePaciente(id: Int!): Paciente!
+  createSignoVital(createSignoVitalInput: CreateSignoVitalInput!): SignoVital!
+  updateSignoVital(updateSignoVitalInput: UpdateSignoVitalInput!): SignoVital!
+  removeSignoVital(id: Int!): SignoVital!
+  createControl(createControlInput: CreateControlInput!): Control!
+  updateControl(updateControlInput: UpdateControlInput!): Control!
+  removeControl(id: Int!): Control!
+}
+
+input CreatePacienteInput {
+  nombre: String
+  identificacion: String!
+}
+
+input UpdatePacienteInput {
+  nombre: String
+  identificacion: String
+  id: Int!
+}
+
+input CreateSignoVitalInput {
+  descripcion: String!
+  minimos: String!
+  maximos: String!
+  estado: String!
+}
+
+input UpdateSignoVitalInput {
+  descripcion: String
+  minimos: String
+  maximos: String
+  estado: String
+  id: Int!
+}
+
+input CreateControlInput {
+  id_paciente: Float!
+  id_signo_vital: Float!
+  fecha: DateTime!
+  hora: Float!
+  valor: Float!
+  estado: String
+}
+
+input UpdateControlInput {
+  id_paciente: Float
+  id_signo_vital: Float
+  fecha: DateTime
+  hora: Float
+  valor: Float
+  estado: String
+  id: Int!
+}
